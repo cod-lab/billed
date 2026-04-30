@@ -1,2 +1,2 @@
 # billed
-Generate Invoices
+## Generate Invoice in both PDF & JPG Formats

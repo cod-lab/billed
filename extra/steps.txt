@@ -1,0 +1,19 @@
+pip install uv  -> uv is a pkg mngr.
+uv init reflect
+    Do Not use "uv init ." to initialize project in current folder, it won't work with UV
+cd reflect
+uv add "fastapi[standard]"
+select interpreter to -> ./.venv/Scripts/python.exe
+update main.py file
+uv run fastapi dev main.py
+    -> run server in 'dev' mode
+    -> 'dev' mode gets auto reload server on any change
+    -> also provides more detailed debugging output
+
+    -> another commad is 'uv run fastapi run main.py' to run prod server
+
+now, goto localhost:8000
+
+uv add "jinja2" -> if jinja2 not installed but in our case its already installed in fastapi[standard]
+
+

@@ -1,0 +1,106 @@
+from fastapi import Request
+
+from pprint import pprint as pp
+
+from .server_template import Server
+
+
+# SETUP SERVER
+server = Server()
+app = server.create_app(    # creating var 'app' for main.py file as it searches for var 'var' only to run the server
+    debug = True,
+    title = 'BILLED',
+    description = 'Invoice Generator',
+    version = 'v1',
+)
+server.set_templates_path('frontend/templates')
+server.mount_assets(
+    assets_url = '/assets',
+    assets_path = 'frontend/assets',
+    assets_app_name = 'assets'
+)
+
+
+# SERVING HOME TEMPLATE
+@app.get('/')
+def home(request: Request):
+    from .forms_and_fields import \
+        supplier_details, \
+        invoice_details, \
+        buyer_details, \
+        product_details, \
+        dispatch_details, \
+        payment_details
+
+    # pp(products_details)
+
+    return server.serve_template(request, "home.html", {
+        "default_theme": "dark",
+        "forms": [
+            {
+                "form_class": "buyer_details",
+                "form_id": "buyer_form",
+                "form_heading": "buyer details",
+                "form_fields": buyer_details,
+                "form_api": "/buyer_details"
+            },
+            {
+                "form_class": "products_details",
+                "form_id": "products_form",
+                "form_heading": "products details",
+                "form_fields": product_details,
+                "form_api": "/products_details"
+            },
+            {
+                "form_class": "invoice_details",
+                "form_id": "invoice_form",
+                "form_heading": "invoice details",
+                "form_fields": invoice_details,
+                "form_api": "/invoice_details"
+            },
+            {
+                "form_class": "dispatch_details",
+                "form_id": "dispatch_form",
+                "form_heading": "dispatch details",
+                "form_fields": dispatch_details,
+                "form_api": "/dispatch_details"
+            },
+            {
+                "form_class": "payment_details",
+                "form_id": "payment_form",
+                "form_heading": "payment details",
+                "form_fields": payment_details,
+                "form_api": "/payment_details"
+            },
+            {
+                "form_class": "supplier_details",
+                "form_id": "supplier_form",
+                "form_heading": "supplier details",
+                "form_fields": supplier_details,
+                "form_api": "/supplier_details"
+            },
+        ],
+        "buttons": {
+            "theme_buttons": [
+                {
+                    "label": "☀️ Light",
+                    "type": "button",
+                    "onclick_fnc": "set_theme",
+                    "mode": "light"
+                },
+                {
+                    "label": "🌙 Dark",
+                    "type": "button",
+                    "onclick_fnc": "set_theme",
+                    "mode": "dark"
+                },
+            ],
+            "submit_button": {
+                "label": "Generate Invoice",
+                "type": "button",
+                "onclick_fnc": "submit_all_forms",
+            }
+        },
+    })
+
+

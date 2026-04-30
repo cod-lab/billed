@@ -1,0 +1,20 @@
+black white themes   ✔
+
+black white theme btns  ✔
+
+edit btn working    ✔
+
+add products feature    ✔
+
+generate invoice btn working    ✔
+
+<form name="" value="">     may be not required
+
+text -> text area   ✔
+
+h5 line in mutiple_fields.html  ✔
+
+update date, radio (if required)
+
+chk products form (is required?)    ✔
+
