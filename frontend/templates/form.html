@@ -1,0 +1,76 @@
+<div id="form-section" class="{{ 'container py-4 ' ~ form.form_class }}">
+
+    <h2 class="form-heading mb-4 text-center">{{ form.form_heading | upper }}</h2>
+
+    <form action="{{ form.form_api }}" method="post" id="{{ form.form_id }}">
+        <!-- FORM CONTAINER -->
+        <div id="{{ 'products-container' if form.form_id == 'products_form' else 'form-container' }}">
+
+            <!-- CONTAINER ITEM -->
+            <div class="{{ 'product-item' if form.form_id == 'products_form' else 'container-item' }}">
+                {% for field in form.form_fields %}
+                    {% if field.type not in ['submit','button'] %}
+                        <hr id="form-hr" class="my-4 mt-5">
+
+                        <div class="mb-4">
+                            {% if field.type == 'multiple' %}
+                                {% include 'multiple_fields.html' %}
+
+                            {% elif field.type == 'date' %}
+                                {% set date_field = field %}
+                                {% include 'date_field.html' %}
+
+                            {% elif field.type == 'textbox' %}
+                                {% set textbox_data = {
+                                    'fields': field.elements,
+                                    'label': field.label,
+                                    'id': field.textbox_id,
+                                } %}
+                                {% include 'textbox_fields.html' %}
+
+                            {% elif field.type == 'numberbox' %}
+                                {% set numberbox_data = {
+                                    'fields': field.elements,
+                                    'label': field.label,
+                                    'id': field.numberbox_id,
+                                } %}
+                                {% include 'numberbox_fields.html' %}
+
+                            {% elif field.type == 'textareabox' %}
+                                {% set textareabox_data = {
+                                    'fields': field.elements,
+                                    'label': field.label,
+                                    'id': field.textareabox_id,
+                                } %}
+                                {% include 'textareabox_fields.html' %}
+
+                            {% elif field.type == 'radio' %}
+                                {% set radio_fields = field %}
+                                {% include 'radio_fields.html' %}
+
+                            {% endif %}
+                        </div>
+
+                    {% endif %}
+
+                {% endfor %}
+            </div>
+
+        </div>
+
+        <!-- BUTTON -->
+        {% for field in form.form_fields %}
+            {% if field.type in ['submit','button'] %}
+                <hr id="form-hr" class="my-4 mt-5">
+
+                {% set button_field = field %}
+                {% include 'button_field.html' %}
+            {% endif %}
+        {% endfor %}
+
+    </form>
+
+</div>
+
+
+

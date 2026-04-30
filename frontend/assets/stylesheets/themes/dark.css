@@ -1,0 +1,30 @@
+#form-section {
+	background-color: #1a1a1a;
+	border-radius: 10px;
+	padding: 20px;
+	border: 1px solid #333;
+}
+
+
+input[readonly],
+input[readonly]:focus,
+textarea[readonly],
+textarea[readonly]:focus {
+	background-color: #000000;
+	color: #646464;
+	border: 1px solid #000000;
+	box-shadow: none;   /* important for Bootstrap */
+	outline: none;
+	pointer-events: none;
+}
+
+
+.btn-secondary {
+	background-color: #444;
+	border-color: #555;
+}
+
+.btn-secondary:hover {
+	background-color: #555;
+}
+

@@ -1,0 +1,33 @@
+{% if textareabox_data.label %}
+    <label class="form-label"><h6>{{ textareabox_data.label }}</h6></label>
+{% endif %}
+
+<div class="input-group">
+    {% for textareabox_field in textareabox_data.fields %}
+        {% if textareabox_field.type == 'textarea' %}
+            <textarea
+                id="{{ textareabox_data.id }}"
+                class="form-control {% if textareabox_field.readonly %}readonly-field{% endif %}"
+                placeholder="{{ textareabox_field.placeholder }}"
+                wrap="soft"
+                rows="4"
+
+                {% if textareabox_field.readonly %}readonly{% endif %}
+
+                {% if textareabox_field.required %}required{% endif %}
+            >{{ textareabox_field.value if textareabox_field.value else '' }}</textarea>
+
+        {% elif textareabox_field.type in ['submit','button'] %}
+            <button
+                class="btn btn-secondary edit-btn"
+                type="{{ textareabox_field.type }}"
+                onclick="{{ textareabox_field.onclick_fnc ~ '(\'' ~ textareabox_data.id ~ '\')' }}"
+            >
+                Edit ✏️
+            </button>
+        {% endif %}
+    {% endfor %}
+</div>
+
+
+

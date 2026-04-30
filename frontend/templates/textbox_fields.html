@@ -1,0 +1,35 @@
+{% if textbox_data.label %}
+    <label class="form-label"><h6>{{ textbox_data.label }}</h6></label>
+{% endif %}
+
+<div class="input-group">
+    {% for textbox_field in textbox_data.fields %}
+        {% if textbox_field.type == 'text' %}
+            <input
+                id="{{ textbox_data.id }}"
+                type="{{ textbox_field.type }}"
+                class="form-control {% if textbox_field.readonly %}readonly-field{% endif %}"
+                placeholder="{{ textbox_field.placeholder }}"
+
+                {% if textbox_field.value %}
+                    value="{{ textbox_field.value }}"
+                {% endif %}
+
+                {% if textbox_field.readonly %}readonly{% endif %}
+
+                {% if textbox_field.required %}required{% endif %}
+            >
+        {% elif textbox_field.type in ['submit','button'] %}
+            <button
+                class="btn btn-secondary edit-btn"
+                type="{{ textbox_field.type }}"
+                onclick="{{ textbox_field.onclick_fnc ~ '(\'' ~ textbox_data.id ~ '\')' }}"
+            >
+                Edit ✏️
+            </button>
+        {% endif %}
+    {% endfor %}
+</div>
+
+
+

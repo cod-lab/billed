@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('assets', path='stylesheets/form.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('assets', path='stylesheets/themes/' ~ default_theme ~ '.css') }}">
+
+    <title>FORMS</title>
+</head>
+
+<body class="container-fluid py-5" data-bs-theme="{{ default_theme }}">
+
+    <br>
+
+    <!-- ✅ NEW: MOBILE TOP THEME BAR -->
+    <div class="d-flex justify-content-center gap-2 mb-3 d-md-none position-sticky"
+         style="top: 0; z-index: 1000; background: var(--bs-body-bg); padding: 10px; height: 60px;">
+
+        <button
+            class="btn btn-dark"
+            onclick="{{ buttons.theme_buttons[1].onclick_fnc ~ '(\'' ~ buttons.theme_buttons[1].mode ~ '\')' }}"
+        >
+            {{ buttons.theme_buttons[1].label }}
+        </button>
+
+        <button
+            class="btn btn-light"
+            onclick="{{ buttons.theme_buttons[0].onclick_fnc ~ '(\'' ~ buttons.theme_buttons[0].mode ~ '\')' }}"
+        >
+            {{ buttons.theme_buttons[0].label }}
+        </button>
+    </div>
+
+    <div class="row">
+
+        <!-- 🔁 UPDATED: Hide on mobile -->
+        <!-- LEFT: Dark Button (Desktop only) -->
+        <div class="col-md-2 d-none d-md-flex justify-content-center align-items-start">
+            <button
+                class="btn btn-dark position-sticky"
+                style="top: 20px;"
+                onclick="{{ buttons.theme_buttons[1].onclick_fnc ~ '(\'' ~ buttons.theme_buttons[1].mode ~ '\')' }}"
+            >
+                {{ buttons.theme_buttons[1].label }}
+            </button>
+        </div>
+
+        <!-- CENTER: Forms -->
+        <div class="col-md-8">
+
+            {% for form in forms %}
+                {% include 'form.html' %}
+                <br><br>
+            {% endfor %}
+
+            <!-- Submit Button -->
+            <div class="text-center mt-4">
+                {% set button_field = buttons.submit_button %}
+                {% include 'button_field.html' %}
+            </div>
+
+        </div>
+
+        <!-- 🔁 UPDATED: Hide on mobile -->
+        <!-- RIGHT: Light Button (Desktop only) -->
+        <div class="col-md-2 d-none d-md-flex justify-content-center align-items-start">
+            <button
+                class="btn btn-light position-sticky"
+                style="top: 20px;"
+                onclick="{{ buttons.theme_buttons[0].onclick_fnc ~ '(\'' ~ buttons.theme_buttons[0].mode ~ '\')' }}"
+            >
+                {{ buttons.theme_buttons[0].label }}
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Custom JS -->
+    <script src="{{ url_for('assets', path='scripts/form.js') }}"></script>
+
+</body>
+</html>
+
+

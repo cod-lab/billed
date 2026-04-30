@@ -1,0 +1,9 @@
+.form-heading {
+    position: sticky;
+    top: 60px;
+    z-index: 100;
+
+    background-color: var(--bs-body-bg); /* works with light/dark */
+    padding: 10px 0;
+}
+

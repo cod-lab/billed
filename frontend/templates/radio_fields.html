@@ -1,0 +1,23 @@
+{% if radio_fields.label %}
+    <label class="form-label"><h6>{{ radio_fields.label }}</h6></label>
+{% endif %}
+<div class="mb-2">
+    {% for option_field in radio_fields.options %}
+        <div class="form-check form-check-inline">
+            <input
+                class="form-check-input"
+                type="{{ option_field.type }}"
+                name="{{ option_field.name }}"
+                value="{{ option_field.value }}"
+
+                {% if loop.first %}
+                    {% if radio_fields.required %}
+                        required
+                    {% endif %}
+                {% endif %}
+            >
+            <label class="form-check-label">{{ option_field.label }}</label>
+        </div>
+    {% endfor %}
+</div>
+

@@ -1,0 +1,44 @@
+<label class="form-label">
+    <h5 class="{{ 'product-title' if form.form_id == 'products_form' else '' }}">
+        {{ field.label }}
+    </h5>
+</label>
+
+{% for sub_field in field.fields %}
+    <br>
+    {% if sub_field.type == 'date' %}
+        {% set date_field = sub_field %}
+        {% include 'date_field.html' %} <!-- pass fields[{date}] data in this -->
+
+    {% elif sub_field.type == 'textbox' %}
+        {% set textbox_data = {
+            'fields': sub_field.elements,
+            'label': sub_field.label,
+            'id': sub_field.textbox_id,
+        } %}
+        {% include 'textbox_fields.html' %} <!-- pass fields[{text}] data in this -->
+
+    {% elif sub_field.type == 'numberbox' %}
+        {% set numberbox_data = {
+            'fields': sub_field.elements,
+            'label': sub_field.label,
+            'id': sub_field.numberbox_id,
+        } %}
+        {% include 'numberbox_fields.html' %} <!-- pass fields[{number}] data in this -->
+
+    {% elif sub_field.type == 'textareabox' %}
+        {% set textareabox_data = {
+            'fields': sub_field.elements,
+            'label': sub_field.label,
+            'id': sub_field.textareabox_id,
+        } %}
+        {% include 'textareabox_fields.html' %} <!-- pass fields[{textarea}] data in this -->
+
+    {% elif sub_field.type == 'radio' %}
+        {% set radio_fields = sub_field %}
+        {% include 'radio_fields.html' %} <!-- pass fields[{radio}] data in this -->
+
+    {% endif %}
+{% endfor %}
+
+

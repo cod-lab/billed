@@ -1,0 +1,35 @@
+{% if numberbox_data.label %}
+    <label class="form-label"><h6>{{ numberbox_data.label }}</h6></label>
+{% endif %}
+
+<div class="input-group">
+    {% for numberbox_field in numberbox_data.fields %}
+        {% if numberbox_field.type == 'number' %}
+            <input
+                id="{{ numberbox_data.id }}"
+                type="{{ numberbox_field.type }}"
+                class="form-control {% if numberbox_field.readonly %}readonly-field{% endif %}"
+                placeholder="{{ numberbox_field.placeholder }}"
+
+                {% if numberbox_field.value %}
+                    value="{{ numberbox_field.value }}"
+                {% endif %}
+
+                {% if numberbox_field.readonly %}readonly{% endif %}
+
+                {% if numberbox_field.required %}required{% endif %}
+            >
+
+        {% elif numberbox_field.type in ['submit','button'] %}
+            <button
+                class="btn btn-secondary edit-btn"
+                type="{{ numberbox_field.type }}"
+                onclick="{{ numberbox_field.onclick_fnc ~ '(\'' ~ numberbox_data.id ~ '\')' }}"
+            >
+                Edit ✏️
+            </button>
+        {% endif %}
+    {% endfor %}
+</div>
+
+

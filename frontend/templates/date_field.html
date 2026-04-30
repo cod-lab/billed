@@ -1,0 +1,11 @@
+{% if date_field.label %}
+    <label class="form-label"><h6>{{ date_field.label }}</h6></label>
+{% endif %}
+<input
+    id="{{ date_field.id }}"
+    type="{{ date_field.type }}"
+    class="form-control"
+    {% if date_field.required %}required{% endif %}
+>
+
+
