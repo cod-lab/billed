@@ -1,3 +1,5 @@
+<<========== frontend ==========>>
+
 black white themes   ✔
 
 black white theme btns  ✔
@@ -17,4 +19,41 @@ h5 line in mutiple_fields.html  ✔
 update date, radio (if required)
 
 chk products form (is required?)    ✔
+
+add field 'payment mode' - online, cash (only for record, not req to include in bill)
+
+
+<<========== backend ==========>>
+
+models
+controllers
+
+mongo server setup
+
+api models (if req)
+
+
+data validation (pydantics) (if req)
+
+default env vars    ✖ (not req)
+
+env vars (if req)
+
+setup .env
+
+err msgs
+
+response msgs
+
+
+move 'router initialization' from 'routes' to 'main' to prevent circular import
+incase server needed to be imported to routes files
+
+
+api response
+
+logging
+
+try catch
+
 

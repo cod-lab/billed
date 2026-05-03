@@ -17,3 +17,9 @@ now, goto localhost:8000
 uv add "jinja2" -> if jinja2 not installed but in our case its already installed in fastapi[standard]
 
 
+uv add motor -> install motor (for mongodb) in uv
+
+uv add pydantic-settings -> for .env setup in fastapi
+
+
+

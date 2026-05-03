@@ -2,35 +2,44 @@ from fastapi import Request
 
 from pprint import pprint as pp
 
+from .backend.core.config import get_settings
 from .server_template import Server
 
 
+# GETTING ENV VARS
+settings = get_settings()
+
 # SETUP SERVER
 server = Server()
-app = server.create_app(    # creating var 'app' for main.py file as it searches for var 'var' only to run the server
-    debug = True,
-    title = 'BILLED',
-    description = 'Invoice Generator',
-    version = 'v1',
+
+app = server.create_app(    # creating var 'app' for main.py file as it searches only for var 'app' to run the server
+    debug = settings.debug,
+    title = settings.title,
+    description = settings.description,
+    version = settings.version
 )
-server.set_templates_path('frontend/templates')
+
+server.set_templates_path(settings.templates_path)
+
 server.mount_assets(
-    assets_url = '/assets',
-    assets_path = 'frontend/assets',
-    assets_app_name = 'assets'
+    assets_url = settings.assets_url,
+    assets_path = settings.assets_path,
+    assets_app_name = settings.assets_app_name
 )
+
 
 
 # SERVING HOME TEMPLATE
 @app.get('/')
 def home(request: Request):
-    from .forms_and_fields import \
-        supplier_details, \
-        invoice_details, \
-        buyer_details, \
-        product_details, \
-        dispatch_details, \
+    from .forms_and_fields import (
+        supplier_details,
+        invoice_details,
+        buyer_details,
+        product_details,
+        dispatch_details,
         payment_details
+    )
 
     # pp(products_details)
 

@@ -2,13 +2,15 @@ from fastapi import FastAPI, APIRouter, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 
+from typing import Any
+
 
 class Server():
     def create_app(self,
         debug: bool = True,
         title: str = '',
         description: str = '',
-        version: str = '',
+        version: str = ''
     ):
         """
         """
@@ -34,7 +36,7 @@ class Server():
     ):
         """
         """
-        # include frontend static files - css, js, img (if req)
+        # includes frontend static files - css, js, img (if req)
         self.app.mount(assets_url, StaticFiles(directory=assets_path), name=assets_app_name)   # this will serve the static files from the assets directory and we can access them using /assets in the url
 
 
