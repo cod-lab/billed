@@ -28,7 +28,7 @@ add field 'payment mode' - online, cash (only for record, not req to include in 
 models
 controllers
 
-mongo server setup
+mongo server setup  ✔
 
 api models (if req)
 
@@ -37,9 +37,9 @@ data validation (pydantics) (if req)
 
 default env vars    ✖ (not req)
 
-env vars (if req)
+env vars (if req)   ✖ (not req)
 
-setup .env
+setup .env  ✔
 
 err msgs
 
@@ -55,5 +55,8 @@ api response
 logging
 
 try catch
+
+
+authentication
 
 

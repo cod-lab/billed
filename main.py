@@ -1,31 +1,55 @@
-from fastapi import Request
+from fastapi import Request, Depends, HTTPException
 
 from pprint import pprint as pp
 
 from .backend.core.config import get_settings
+from .backend.utils.mongodb import MongoDB
 from .server_template import Server
 
 
 # GETTING ENV VARS
 settings = get_settings()
 
-# SETUP SERVER
+
+# ******** SETUP SERVER ********
 server = Server()
 
 app = server.create_app(    # creating var 'app' for main.py file as it searches only for var 'app' to run the server
     debug = settings.debug,
     title = settings.title,
     description = settings.description,
-    version = settings.version
+    version = settings.version,
+    lifespan = {    # for mongo db connectivity
+        'on_startup_fnc': MongoDB.startup,
+        'on_shutdown_fnc': MongoDB.shutdown,
+    }
 )
 
+# HTML files path
 server.set_templates_path(settings.templates_path)
 
+# STATIC files path (js, css, img, etc.)
 server.mount_assets(
     assets_url = settings.assets_url,
     assets_path = settings.assets_path,
     assets_app_name = settings.assets_app_name
 )
+# ******** ************ ********
+
+
+
+# CHECKING DB Connection
+@app.get("/check_db_con")
+async def check_db(db = Depends(MongoDB.get_db)):
+    """
+    Injecting db dependency 'MongoDB.get_db' into function 'check_db' using 'Depends' using var 'db'.
+    Depends automatically calls the fnc 'MongoDB.get_db' and pass the arg 'request' to it.
+    """
+    try:
+        await db.command("ping")
+        return {"status": "MongoDB connected"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 
