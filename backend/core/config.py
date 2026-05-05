@@ -16,9 +16,11 @@ class Settings(BaseSettings):
     assets_app_name: str
 
     # == MONGODB CONFIG ==
+    mongodb_user: str
+    mongodb_pass: str
     cluster: str
-    username: str
-    password: str
+    project_string: str
+    database: str
 
     # This tells Pydantic to read from the .env file
     model_config = SettingsConfigDict(env_file=".env")
